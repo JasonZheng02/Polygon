@@ -8,8 +8,31 @@ def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x2, y2, z2)
 
 def draw_polygons( polygons, screen, color ):
-    pass
-
+    if len(polygons) < 3:
+        print(polygons)
+        print('Need at least 3 points to draw')
+        return
+    vector_o = [0,0,1]
+    point = 0
+    while point < len(polygons) - 2:
+        vector_n = calculate_normal(polygons, point)
+        if dot_product(vector_n, vector_o) > 0:
+            draw_line( int(polygons[point][0]),
+                       int(polygons[point][1]),
+                       int(polygons[point+1][0]),
+                       int(polygons[point+1][1]),
+                       screen, color)
+            draw_line( int(polygons[point][0]),
+                       int(polygons[point][1]),
+                       int(polygons[point+2][0]),
+                       int(polygons[point+2][1]),
+                       screen, color)
+            draw_line( int(polygons[point+1][0]),
+                       int(polygons[point+1][1]),
+                       int(polygons[point+2][0]),
+                       int(polygons[point+2][1]),
+                       screen, color)
+        point+= 3
 
 def add_box( polygons, x, y, z, width, height, depth ):
     x1 = x + width
@@ -66,7 +89,7 @@ def add_sphere(polygons, cx, cy, cz, r, steps ):
                             points[(index + 1 + steps) % len(points)][0], points[(index + 1 + steps) % len(points)][1], points[(index + 1 + steps) % len(points)][2])
                 add_polygon(polygons,
                             points[index][0], points[index][1], points[index][2],
-                            points[(index + 1 + steps) % len(points)][0], points[(index + 1 + steps) % len(points)][1], points[(index + 1 + steps) % len(points)][2]
+                            points[(index + 1 + steps) % len(points)][0], points[(index + 1 + steps) % len(points)][1], points[(index + 1 + steps) % len(points)][2],
                             points[(index + 1) % len(points)][0], points[(index + 1) % len(points)][1], points[(index + 1) % len(points)][2])
 
 def generate_sphere( cx, cy, cz, r, steps ):
