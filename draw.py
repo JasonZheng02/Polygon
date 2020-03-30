@@ -9,7 +9,6 @@ def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
 
 def draw_polygons( polygons, screen, color ):
     if len(polygons) < 3:
-        print(polygons)
         print('Need at least 3 points to draw')
         return
     vector_o = [0,0,1]
@@ -40,28 +39,28 @@ def add_box( polygons, x, y, z, width, height, depth ):
     z1 = z - depth
 
     #front
-    add_polygon(polygons, x, y, z, x, y1, z, x1, y, z)
+    add_polygon(polygons, x1, y, z, x, y, z, x, y1, z)
     add_polygon(polygons, x, y1, z, x1, y1, z, x1, y, z)
 
     #back
-    add_polygon(polygons, x, y, z1, x, y1, z1, x1, y, z1)
-    add_polygon(polygons, x, y1, z1, x1, y1, z1, x1, y, z1)
-
+    add_polygon(polygons, x, y1, z1, x, y, z1, x1, y, z1)
+    add_polygon(polygons, x1, y, z1, x1, y1, z1, x, y1, z1)
+    
     #left
-    add_polygon(polygons, x, y, z, x, y1, z, x, y, z1)
-    add_polygon(polygons, x, y1, z, x, y1, z1, x, y, z1)
-
+    add_polygon(polygons, x, y, z, x, y, z1, x, y1, z1)
+    add_polygon(polygons, x, y, z, x, y1, z1, x, y1, z)
+    
     #right
-    add_polygon(polygons, x1, y, z, x1, y1, z, x1, y, z1)
-    add_polygon(polygons, x1, y1, z, x1, y1, z1, x1, y, z1)
-
+    add_polygon(polygons, x1, y1, z1, x1, y, z1, x1, y, z)
+    add_polygon(polygons, x1, y1, z, x1, y1, z1, x1, y, z)
+    
     #top
-    add_polygon(polygons, x, y, z, x, y, z1, x1, y, z)
-    add_polygon(polygons, x, y, z1, x1, y, z1, x1, y, z)
+    add_polygon(polygons, x, y, z, x1, y, z, x1, y, z1)
+    add_polygon(polygons, x1, y, z1, x, y, z1, x, y, z)
 
     #bottom
-    add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z)
-    add_polygon(polygons, x, y1, z1, x1, y1, z1, x1, y1, z)
+    add_polygon(polygons, x1, y1, z1, x1, y1, z, x, y1, z)
+    add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z1)
 
 def add_sphere(polygons, cx, cy, cz, r, steps ):
     points = generate_sphere(cx, cy, cz, r, steps)
