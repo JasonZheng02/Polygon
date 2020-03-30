@@ -2,7 +2,6 @@ import math
 from display import *
 
 
-
 #vector functions
 #normalize vector, should modify the parameter
 def normalize(vector):
